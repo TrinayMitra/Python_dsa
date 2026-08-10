@@ -165,12 +165,12 @@ class BinaryTree(Generic[T]):
 
         return count
 
-    def insert(self, value: T) -> None:
+    def insert(self, value: T) -> BinaryNode[T]:
         raise NotImplementedError(
             f"{self.__class__.__name__} does not implement insert()."
         )
 
-    def delete(self, value: T) -> None:
+    def delete(self, value: T) -> bool:
         raise NotImplementedError(
             f"{self.__class__.__name__} does not implement delete()."
         )

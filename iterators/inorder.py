@@ -12,7 +12,7 @@ class InOrderIterator(BinaryTreeIterator[BinaryNode[T]]):
     Left -> Root -> Right
     """
 
-    def __init__(self, root: BinaryNode[T]) -> None:
+    def __init__(self, root: BinaryNode[T] | None) -> None:
         self._stack: list[BinaryNode[T]] = []
         self._current: BinaryNode[T] | None = root
 
