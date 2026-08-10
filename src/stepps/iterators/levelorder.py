@@ -1,14 +1,11 @@
 from collections import deque
-from typing import TypeVar
 
-from nodes import BinaryNode
+from stepps.nodes import BinaryNode
 
 from .base_iterator import BinaryTreeIterator
 
-T = TypeVar("T")
 
-
-class LevelOrderIterator(BinaryTreeIterator[BinaryNode[T]]):
+class LevelOrderIterator[T](BinaryTreeIterator[BinaryNode[T]]):
     """
     Traverses a binary tree level by level.
     """

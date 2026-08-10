@@ -1,18 +1,15 @@
 from collections import deque
-from typing import Generic, TypeVar
 
-from iterators import (
+from stepps.iterators import (
     InOrderIterator,
     LevelOrderIterator,
     PostOrderIterator,
     PreOrderIterator,
 )
-from nodes import BinaryNode
-
-T = TypeVar("T")
+from stepps.nodes import BinaryNode
 
 
-class BinaryTree(Generic[T]):
+class BinaryTree[T]:
     """
     Base class for all binary tree implementations.
     """

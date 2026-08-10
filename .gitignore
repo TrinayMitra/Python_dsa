@@ -1,9 +1,11 @@
 # Python bytecode
+
 __pycache__/
 *.py[cod]
 *$py.class
 
 # Virtual environments
+
 .venv/
 venv/
 env/
@@ -11,27 +13,43 @@ ENV/
 .v/
 
 # Pytest
+
 .pytest_cache/
 
 # Coverage
+
 .coverage
 .coverage.*
 htmlcov/
 
 # Distribution
+
 build/
 dist/
 *.egg-info/
 
 # IDEs
+
 .vscode/
 .idea/
 
 # OS files
+
 .DS_Store
 Thumbs.db
 
 # Logs
+
 *.log
+
+# Type checking
+
+.mypy_cache/
+
+# Ruff
+
+.ruff_cache/
+
+# MonkeyType
 
 monkeytype.sqlite3

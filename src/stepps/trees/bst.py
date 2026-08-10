@@ -1,6 +1,6 @@
 from typing import Protocol, TypeVar
 
-from nodes import BinaryNode
+from stepps.nodes import BinaryNode
 
 from .binary_tree import BinaryTree
 

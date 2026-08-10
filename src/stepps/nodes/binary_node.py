@@ -1,11 +1,11 @@
 from __future__ import annotations
 
-from typing import Generic, TypeVar
+from typing import TypeVar
 
 T = TypeVar("T")
 
 
-class BinaryNode(Generic[T]):
+class BinaryNode[T]:
     """Represents a node in a binary tree."""
 
     def __init__(self, value: T) -> None:

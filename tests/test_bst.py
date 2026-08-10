@@ -1,6 +1,6 @@
 import pytest
 
-from trees import BST
+from stepps.trees import BST
 
 
 @pytest.fixture

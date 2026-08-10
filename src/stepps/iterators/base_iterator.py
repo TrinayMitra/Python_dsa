@@ -1,11 +1,9 @@
 from abc import ABC, abstractmethod
 from collections.abc import Iterator
-from typing import Generic, Self, TypeVar
-
-T = TypeVar("T")
+from typing import Self
 
 
-class BinaryTreeIterator(ABC, Iterator[T], Generic[T]):
+class BinaryTreeIterator[T](ABC, Iterator[T]):
     """Base class for all binary tree iterators."""
 
     def __iter__(self) -> Self:

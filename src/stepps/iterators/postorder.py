@@ -1,13 +1,9 @@
-from typing import TypeVar
-
-from nodes import BinaryNode
+from stepps.nodes import BinaryNode
 
 from .base_iterator import BinaryTreeIterator
 
-T = TypeVar("T")
 
-
-class PostOrderIterator(BinaryTreeIterator[BinaryNode[T]]):
+class PostOrderIterator[T](BinaryTreeIterator[BinaryNode[T]]):
     """
     Traverses a binary tree in Postorder.
     Left -> Right -> Root

@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
+
+
+[project]
+name = "stepps"
+version = "0.1.0"
+description = "Data structures and algorithms implemented in Python"
+requires-python = ">=3.12"
+
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+
+[tool.ruff]
+line-length = 88
+
+
+[tool.mypy]
+python_version = "3.12"
+
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
