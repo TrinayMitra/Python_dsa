@@ -1,10 +1,15 @@
-from typing import TypeVar
-
+from typing import Protocol, TypeVar
 from nodes import BinaryNode
 from .binary_tree import BinaryTree
 
-T = TypeVar("T")
+class Comparable(Protocol):
+    def __lt__(self, other: object, /) -> bool:
+        ...
 
+    def __gt__(self, other: object, /) -> bool:
+        ...
+
+T = TypeVar("T", bound=Comparable)
 
 class BST(BinaryTree[T]):
     """
@@ -26,7 +31,7 @@ class BST(BinaryTree[T]):
             self._size = 1
             return new_node
 
-        current = self.root
+        current: BinaryNode[T] | None = self.root
         parent: BinaryNode[T] | None = None
 
         while current is not None:
@@ -41,6 +46,8 @@ class BST(BinaryTree[T]):
             else:
                 # duplicate
                 return current
+
+        assert parent is not None
 
         new_node.parent = parent
 
