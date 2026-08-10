@@ -1,13 +1,13 @@
 from collections import deque
 from typing import Generic, TypeVar
 
-from nodes import BinaryNode
 from iterators import (
     InOrderIterator,
-    PreOrderIterator,
-    PostOrderIterator,
     LevelOrderIterator,
+    PostOrderIterator,
+    PreOrderIterator,
 )
+from nodes import BinaryNode
 
 T = TypeVar("T")
 

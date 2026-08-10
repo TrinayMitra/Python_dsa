@@ -1,6 +1,7 @@
 from typing import TypeVar
 
 from nodes import BinaryNode
+
 from .base_iterator import BinaryTreeIterator
 
 T = TypeVar("T")
