@@ -124,9 +124,7 @@ class BinaryTree(Generic[T]):
         if self.root is None:
             return -1
 
-        queue: deque[tuple[BinaryNode[T], int]] = deque(
-            [(self.root, 0)]
-        )
+        queue: deque[tuple[BinaryNode[T], int]] = deque([(self.root, 0)])
         max_height = 0
 
         while queue:

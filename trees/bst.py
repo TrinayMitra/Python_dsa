@@ -2,14 +2,15 @@ from typing import Protocol, TypeVar
 from nodes import BinaryNode
 from .binary_tree import BinaryTree
 
-class Comparable(Protocol):
-    def __lt__(self, other: object, /) -> bool:
-        ...
 
-    def __gt__(self, other: object, /) -> bool:
-        ...
+class Comparable(Protocol):
+    def __lt__(self, other: object, /) -> bool: ...
+
+    def __gt__(self, other: object, /) -> bool: ...
+
 
 T = TypeVar("T", bound=Comparable)
+
 
 class BST(BinaryTree[T]):
     """

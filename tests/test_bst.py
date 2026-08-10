@@ -17,6 +17,7 @@ def bst():
 # Basic Properties
 # =====================================================
 
+
 def test_new_tree_is_empty():
     tree = BST()
 
@@ -31,6 +32,7 @@ def test_size(bst):
 # =====================================================
 # Search
 # =====================================================
+
 
 def test_find_existing(bst):
     node = bst.find(40)
@@ -55,6 +57,7 @@ def test_not_contains(bst):
 # Min / Max
 # =====================================================
 
+
 def test_minimum(bst):
     assert bst.minimum().value == 20
 
@@ -66,6 +69,7 @@ def test_maximum(bst):
 # =====================================================
 # Tree Statistics
 # =====================================================
+
 
 def test_height(bst):
     assert bst.height() == 2
@@ -82,6 +86,7 @@ def test_internal_nodes(bst):
 # =====================================================
 # Traversals
 # =====================================================
+
 
 def test_inorder(bst):
     values = [node.value for node in bst.inorder()]
@@ -110,6 +115,7 @@ def test_levelorder(bst):
 # =====================================================
 # Delete
 # =====================================================
+
 
 def test_delete_leaf(bst):
     assert bst.delete(20)
