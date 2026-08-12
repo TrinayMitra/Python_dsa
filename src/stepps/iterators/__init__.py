@@ -1,8 +1,8 @@
-from .base_iterator import BinaryTreeIterator
-from .inorder import InOrderIterator
-from .levelorder import LevelOrderIterator
-from .postorder import PostOrderIterator
-from .preorder import PreOrderIterator
+from stepps.iterators.base_iterator import BinaryTreeIterator
+from stepps.iterators.inorder import InOrderIterator
+from stepps.iterators.levelorder import LevelOrderIterator
+from stepps.iterators.postorder import PostOrderIterator
+from stepps.iterators.preorder import PreOrderIterator
 
 __all__ = [
     "BinaryTreeIterator",

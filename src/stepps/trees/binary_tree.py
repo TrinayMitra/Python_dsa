@@ -11,10 +11,16 @@ from stepps.nodes import BinaryNode
 
 class BinaryTree[T]:
     """
-    Base class for all binary tree implementations.
+    Base class for binary tree implementations.
+
+    :ivar root: The root node of the tree, or ``None`` if the tree is empty.
+    :ivar _size: The number of nodes currently contained in the tree.
     """
 
     def __init__(self) -> None:
+        """
+        Initialize an empty binary tree.
+        """
         self.root: BinaryNode[T] | None = None
         self._size: int = 0
 
@@ -24,27 +30,41 @@ class BinaryTree[T]:
 
     def is_empty(self) -> bool:
         """
-        Returns True if the tree has no nodes.
+        Return whether the tree is empty.
+
+        :return: ``True`` if the tree contains no nodes, otherwise ``False``.
         """
         return self.root is None
 
     def clear(self) -> None:
         """
-        Removes all nodes from the tree.
+        Remove all nodes from the tree.
         """
         self.root = None
         self._size = 0
 
     def size(self) -> int:
         """
-        Returns the number of nodes in the tree.
+        Return the number of nodes in the tree.
+
+        :return: The number of nodes in the tree.
         """
         return self._size
 
     def __len__(self) -> int:
+        """
+        Return the number of nodes in the tree.
+
+        :return: The number of nodes in the tree.
+        """
         return self._size
 
     def __bool__(self) -> bool:
+        """
+        Return whether the tree contains at least one node.
+
+        :return: ``True`` if the tree is not empty, otherwise ``False``.
+        """
         return not self.is_empty()
 
     # =====================================================
@@ -53,31 +73,43 @@ class BinaryTree[T]:
 
     def preorder(self) -> PreOrderIterator[T]:
         """
-        Returns a preorder iterator.
+        Return a preorder iterator.
+
+        :return: An iterator that traverses the tree in preorder.
         """
         return PreOrderIterator(self.root)
 
     def inorder(self) -> InOrderIterator[T]:
         """
-        Returns an inorder iterator.
+        Return an inorder iterator.
+
+        :return: An iterator that traverses the tree in inorder.
         """
         return InOrderIterator(self.root)
 
     def postorder(self) -> PostOrderIterator[T]:
         """
-        Returns a postorder iterator.
+        Return a postorder iterator.
+
+        :return: An iterator that traverses the tree in postorder.
         """
         return PostOrderIterator(self.root)
 
     def levelorder(self) -> LevelOrderIterator[T]:
         """
-        Returns a level-order iterator.
+        Return a level-order iterator.
+
+        :return: An iterator that traverses the tree level by level.
         """
         return LevelOrderIterator(self.root)
 
     def __iter__(self) -> InOrderIterator[T]:
         """
-        Default iterator (inorder).
+        Return the default tree iterator.
+
+        The default traversal is inorder.
+
+        :return: An inorder iterator over the tree.
         """
         return self.inorder()
 
@@ -87,10 +119,10 @@ class BinaryTree[T]:
 
     def find(self, value: T) -> BinaryNode[T] | None:
         """
-        Finds and returns the first node containing value.
+        Find the first node containing ``value``.
 
-        Returns:
-            BinaryNode if found, otherwise None.
+        :param value: The value to search for.
+        :return: The matching node, or ``None`` if the value is not found.
         """
         for node in self.levelorder():
             if node.value == value:
@@ -100,11 +132,20 @@ class BinaryTree[T]:
 
     def contains(self, value: T) -> bool:
         """
-        Returns True if value exists in the tree.
+        Return whether ``value`` exists in the tree.
+
+        :param value: The value to search for.
+        :return: ``True`` if the value exists, otherwise ``False``.
         """
         return self.find(value) is not None
 
     def __contains__(self, value: T) -> bool:
+        """
+        Return whether ``value`` exists in the tree.
+
+        :param value: The value to search for.
+        :return: ``True`` if the value exists, otherwise ``False``.
+        """
         return self.contains(value)
 
     # =====================================================
@@ -113,10 +154,12 @@ class BinaryTree[T]:
 
     def height(self) -> int:
         """
-        Returns the height of the tree.
+        Return the height of the tree.
 
-        Empty tree -> -1
-        Single node -> 0
+        An empty tree has a height of ``-1`` and a tree containing
+        a single node has a height of ``0``.
+
+        :return: The height of the tree.
         """
         if self.root is None:
             return -1
@@ -138,7 +181,9 @@ class BinaryTree[T]:
 
     def count_leaves(self) -> int:
         """
-        Returns the number of leaf nodes.
+        Return the number of leaf nodes in the tree.
+
+        :return: The number of leaf nodes.
         """
         count = 0
 
@@ -150,7 +195,11 @@ class BinaryTree[T]:
 
     def count_internal_nodes(self) -> int:
         """
-        Returns the number of internal (non-leaf) nodes.
+        Return the number of internal nodes in the tree.
+
+        An internal node is a node that has at least one child.
+
+        :return: The number of internal nodes.
         """
         count = 0
 
@@ -161,11 +210,27 @@ class BinaryTree[T]:
         return count
 
     def insert(self, value: T) -> BinaryNode[T]:
+        """
+        Insert a value into the tree.
+
+        :param value: The value to insert.
+        :return: The node containing the inserted value.
+        :raises NotImplementedError: If the tree implementation does not
+            provide insertion behavior.
+        """
         raise NotImplementedError(
             f"{self.__class__.__name__} does not implement insert()."
         )
 
     def delete(self, value: T) -> bool:
+        """
+        Delete a value from the tree.
+
+        :param value: The value to delete.
+        :return: ``True`` if the value was deleted.
+        :raises NotImplementedError: If the tree implementation does not
+            provide deletion behavior.
+        """
         raise NotImplementedError(
             f"{self.__class__.__name__} does not implement delete()."
         )
@@ -175,4 +240,9 @@ class BinaryTree[T]:
     # =====================================================
 
     def __repr__(self) -> str:
+        """
+        Return the string representation of the tree.
+
+        :return: A string containing the tree type and node count.
+        """
         return f"{self.__class__.__name__}(size={self._size})"

@@ -1,25 +1,32 @@
-from typing import Protocol, TypeVar
+from typing import Protocol
 
 from stepps.nodes import BinaryNode
-
-from .binary_tree import BinaryTree
+from stepps.trees.binary_tree import BinaryTree
 
 
 class Comparable(Protocol):
+    """
+    Define the comparison operations required by a binary search tree.
+    """
+
     def __lt__(self, other: object, /) -> bool: ...
 
     def __gt__(self, other: object, /) -> bool: ...
 
 
-T = TypeVar("T", bound=Comparable)
-
-
-class BST(BinaryTree[T]):
+class BST[T: Comparable](BinaryTree[T]):
     """
-    Binary Search Tree implementation.
+    Represent a binary search tree.
+
+    A binary search tree maintains the ordering property that values
+    smaller than a node are stored in its left subtree and values
+    greater than a node are stored in its right subtree.
     """
 
     def __init__(self) -> None:
+        """
+        Initialize an empty binary search tree.
+        """
         super().__init__()
 
     # =====================================================
@@ -27,6 +34,15 @@ class BST(BinaryTree[T]):
     # =====================================================
 
     def insert(self, value: T) -> BinaryNode[T]:
+        """
+        Insert a value into the binary search tree.
+
+        Duplicate values are not inserted.
+
+        :param value: The value to insert.
+        :return: The node containing ``value``. If the value already exists,
+            the existing node is returned.
+        """
         new_node = BinaryNode(value)
 
         if self.root is None:
@@ -47,7 +63,6 @@ class BST(BinaryTree[T]):
                 current = current.right
 
             else:
-                # duplicate
                 return current
 
         assert parent is not None
@@ -68,6 +83,12 @@ class BST(BinaryTree[T]):
     # =====================================================
 
     def find(self, value: T) -> BinaryNode[T] | None:
+        """
+        Find a node containing ``value``.
+
+        :param value: The value to search for.
+        :return: The matching node, or ``None`` if the value is not found.
+        """
         current = self.root
 
         while current is not None:
@@ -86,6 +107,14 @@ class BST(BinaryTree[T]):
     # =====================================================
 
     def minimum(self, node: BinaryNode[T] | None = None) -> BinaryNode[T] | None:
+        """
+        Find the minimum-valued node in a subtree.
+
+        If ``node`` is not provided, the search starts at the tree root.
+
+        :param node: The node at which to start the search.
+        :return: The minimum-valued node, or ``None`` if the tree is empty.
+        """
         if node is None:
             node = self.root
 
@@ -102,6 +131,14 @@ class BST(BinaryTree[T]):
     # =====================================================
 
     def maximum(self, node: BinaryNode[T] | None = None) -> BinaryNode[T] | None:
+        """
+        Find the maximum-valued node in a subtree.
+
+        If ``node`` is not provided, the search starts at the tree root.
+
+        :param node: The node at which to start the search.
+        :return: The maximum-valued node, or ``None`` if the tree is empty.
+        """
         if node is None:
             node = self.root
 
@@ -118,6 +155,12 @@ class BST(BinaryTree[T]):
     # =====================================================
 
     def successor(self, node: BinaryNode[T] | None) -> BinaryNode[T] | None:
+        """
+        Find the inorder successor of a node.
+
+        :param node: The node whose successor should be found.
+        :return: The inorder successor, or ``None`` if no successor exists.
+        """
         if node is None:
             return None
 
@@ -137,6 +180,12 @@ class BST(BinaryTree[T]):
     # =====================================================
 
     def predecessor(self, node: BinaryNode[T] | None) -> BinaryNode[T] | None:
+        """
+        Find the inorder predecessor of a node.
+
+        :param node: The node whose predecessor should be found.
+        :return: The inorder predecessor, or ``None`` if no predecessor exists.
+        """
         if node is None:
             return None
 
@@ -160,6 +209,12 @@ class BST(BinaryTree[T]):
         u: BinaryNode[T],
         v: BinaryNode[T] | None,
     ) -> None:
+        """
+        Replace one subtree with another subtree.
+
+        :param u: The root of the subtree being replaced.
+        :param v: The root of the replacement subtree, or ``None``.
+        """
         if u.parent is None:
             self.root = v
 
@@ -173,24 +228,27 @@ class BST(BinaryTree[T]):
             v.parent = u.parent
 
     def delete(self, value: T) -> bool:
+        """
+        Delete a value from the binary search tree.
+
+        :param value: The value to delete.
+        :return: ``True`` if the value was found and deleted, otherwise
+            ``False``.
+        """
         node = self.find(value)
 
         if node is None:
             return False
 
-        # Case 1
         if node.left is None:
             self._transplant(node, node.right)
 
-        # Case 2
         elif node.right is None:
             self._transplant(node, node.left)
 
-        # Case 3
         else:
             successor = self.minimum(node.right)
 
-            # successor cannot be None here because node.right exists
             assert successor is not None
 
             if successor.parent != node:
@@ -213,10 +271,25 @@ class BST(BinaryTree[T]):
     # =====================================================
 
     def min(self) -> BinaryNode[T] | None:
+        """
+        Return the minimum-valued node in the tree.
+
+        :return: The minimum-valued node, or ``None`` if the tree is empty.
+        """
         return self.minimum()
 
     def max(self) -> BinaryNode[T] | None:
+        """
+        Return the maximum-valued node in the tree.
+
+        :return: The maximum-valued node, or ``None`` if the tree is empty.
+        """
         return self.maximum()
 
     def __repr__(self) -> str:
+        """
+        Return the string representation of the binary search tree.
+
+        :return: A string containing the tree type and node count.
+        """
         return f"BST(size={self._size})"
