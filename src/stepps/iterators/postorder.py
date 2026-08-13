@@ -54,4 +54,3 @@ class PostOrderIterator[T](BinaryTreeIterator[BinaryNode[T]]):
                 self._stack.append((node.left, False))
 
         raise StopIteration
-    
