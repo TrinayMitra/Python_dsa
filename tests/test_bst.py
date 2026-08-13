@@ -6,12 +6,12 @@ from stepps.iterators import (
     PostOrderIterator,
     PreOrderIterator,
 )
-from stepps.trees import BST
+from stepps.trees import BSTImpl
 
 
 @pytest.fixture
 def bst():
-    tree = BST()
+    tree = BSTImpl()
 
     for value in [50, 30, 70, 20, 40, 60, 80]:
         tree.insert(value)
@@ -25,7 +25,7 @@ def bst():
 
 
 def test_new_tree_is_empty():
-    tree = BST()
+    tree = BSTImpl()
 
     assert tree.is_empty()
     assert len(tree) == 0
@@ -65,11 +65,17 @@ def test_not_contains(bst):
 
 
 def test_minimum(bst):
-    assert bst.minimum().value == 20
+    node = bst.minimum()
+
+    assert node is not None
+    assert node.value == 20
 
 
 def test_maximum(bst):
-    assert bst.maximum().value == 80
+    node = bst.maximum()
+
+    assert node is not None
+    assert node.value == 80
 
 
 # =====================================================
@@ -153,3 +159,4 @@ def test_delete_missing_node(bst):
     assert not bst.delete(999)
 
     assert len(bst) == 7
+    
