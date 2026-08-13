@@ -8,7 +8,6 @@ class BinaryNode[T]:
     :ivar value: The value stored in the node.
     :ivar left: The left child of the node, if any.
     :ivar right: The right child of the node, if any.
-    :ivar parent: The parent of the node, if any.
     """
 
     def __init__(self, value: T) -> None:
@@ -20,7 +19,6 @@ class BinaryNode[T]:
         self.value: T = value
         self.left: BinaryNode[T] | None = None
         self.right: BinaryNode[T] | None = None
-        self.parent: BinaryNode[T] | None = None
 
     def is_leaf(self) -> bool:
         """
@@ -61,21 +59,6 @@ class BinaryNode[T]:
         :return: The number of children, either ``0``, ``1``, or ``2``.
         """
         return int(self.left is not None) + int(self.right is not None)
-
-    def sibling(self) -> BinaryNode[T] | None:
-        """
-        Return the sibling of the node.
-
-        :return: The sibling node, or ``None`` if the node has no parent or
-            sibling.
-        """
-        if self.parent is None:
-            return None
-
-        if self.parent.left is self:
-            return self.parent.right
-
-        return self.parent.left
 
     def __repr__(self) -> str:
         """

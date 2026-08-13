@@ -1,5 +1,11 @@
 import pytest
 
+from stepps.iterators import (
+    InOrderIterator,
+    LevelOrderIterator,
+    PostOrderIterator,
+    PreOrderIterator,
+)
 from stepps.trees import BST
 
 
@@ -89,25 +95,25 @@ def test_internal_nodes(bst):
 
 
 def test_inorder(bst):
-    values = [node.value for node in bst.inorder()]
+    values = [node.value for node in InOrderIterator(bst.root)]
 
     assert values == [20, 30, 40, 50, 60, 70, 80]
 
 
 def test_preorder(bst):
-    values = [node.value for node in bst.preorder()]
+    values = [node.value for node in PreOrderIterator(bst.root)]
 
     assert values == [50, 30, 20, 40, 70, 60, 80]
 
 
 def test_postorder(bst):
-    values = [node.value for node in bst.postorder()]
+    values = [node.value for node in PostOrderIterator(bst.root)]
 
     assert values == [20, 40, 30, 60, 80, 70, 50]
 
 
 def test_levelorder(bst):
-    values = [node.value for node in bst.levelorder()]
+    values = [node.value for node in LevelOrderIterator(bst.root)]
 
     assert values == [50, 30, 70, 20, 40, 60, 80]
 
@@ -120,7 +126,7 @@ def test_levelorder(bst):
 def test_delete_leaf(bst):
     assert bst.delete(20)
 
-    values = [node.value for node in bst]
+    values = [node.value for node in InOrderIterator(bst.root)]
 
     assert values == [30, 40, 50, 60, 70, 80]
 
@@ -130,7 +136,7 @@ def test_delete_node_with_one_child(bst):
 
     assert bst.delete(30)
 
-    values = [node.value for node in bst]
+    values = [node.value for node in InOrderIterator(bst.root)]
 
     assert values == [40, 50, 60, 70, 80]
 
@@ -138,7 +144,7 @@ def test_delete_node_with_one_child(bst):
 def test_delete_node_with_two_children(bst):
     assert bst.delete(50)
 
-    values = [node.value for node in bst]
+    values = [node.value for node in InOrderIterator(bst.root)]
 
     assert values == [20, 30, 40, 60, 70, 80]
 

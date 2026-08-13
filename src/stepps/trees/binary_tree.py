@@ -1,11 +1,5 @@
 from collections import deque
 
-from stepps.iterators import (
-    InOrderIterator,
-    LevelOrderIterator,
-    PostOrderIterator,
-    PreOrderIterator,
-)
 from stepps.nodes import BinaryNode
 
 
@@ -68,52 +62,6 @@ class BinaryTree[T]:
         return not self.is_empty()
 
     # =====================================================
-    # Traversals
-    # =====================================================
-
-    def preorder(self) -> PreOrderIterator[T]:
-        """
-        Return a preorder iterator.
-
-        :return: An iterator that traverses the tree in preorder.
-        """
-        return PreOrderIterator(self.root)
-
-    def inorder(self) -> InOrderIterator[T]:
-        """
-        Return an inorder iterator.
-
-        :return: An iterator that traverses the tree in inorder.
-        """
-        return InOrderIterator(self.root)
-
-    def postorder(self) -> PostOrderIterator[T]:
-        """
-        Return a postorder iterator.
-
-        :return: An iterator that traverses the tree in postorder.
-        """
-        return PostOrderIterator(self.root)
-
-    def levelorder(self) -> LevelOrderIterator[T]:
-        """
-        Return a level-order iterator.
-
-        :return: An iterator that traverses the tree level by level.
-        """
-        return LevelOrderIterator(self.root)
-
-    def __iter__(self) -> InOrderIterator[T]:
-        """
-        Return the default tree iterator.
-
-        The default traversal is inorder.
-
-        :return: An inorder iterator over the tree.
-        """
-        return self.inorder()
-
-    # =====================================================
     # Searching
     # =====================================================
 
@@ -124,9 +72,22 @@ class BinaryTree[T]:
         :param value: The value to search for.
         :return: The matching node, or ``None`` if the value is not found.
         """
-        for node in self.levelorder():
+        if self.root is None:
+            return None
+
+        queue: deque[BinaryNode[T]] = deque([self.root])
+
+        while queue:
+            node = queue.popleft()
+
             if node.value == value:
                 return node
+
+            if node.left is not None:
+                queue.append(node.left)
+
+            if node.right is not None:
+                queue.append(node.right)
 
         return None
 
@@ -185,11 +146,24 @@ class BinaryTree[T]:
 
         :return: The number of leaf nodes.
         """
-        count = 0
+        if self.root is None:
+            return 0
 
-        for node in self.levelorder():
+        count = 0
+        queue: deque[BinaryNode[T]] = deque([self.root])
+
+        while queue:
+            node = queue.popleft()
+
             if node.is_leaf():
                 count += 1
+                continue
+
+            if node.left is not None:
+                queue.append(node.left)
+
+            if node.right is not None:
+                queue.append(node.right)
 
         return count
 
@@ -201,11 +175,23 @@ class BinaryTree[T]:
 
         :return: The number of internal nodes.
         """
-        count = 0
+        if self.root is None:
+            return 0
 
-        for node in self.levelorder():
-            if not node.is_leaf():
+        count = 0
+        queue: deque[BinaryNode[T]] = deque([self.root])
+
+        while queue:
+            node = queue.popleft()
+
+            if node.has_children():
                 count += 1
+
+            if node.left is not None:
+                queue.append(node.left)
+
+            if node.right is not None:
+                queue.append(node.right)
 
         return count
 

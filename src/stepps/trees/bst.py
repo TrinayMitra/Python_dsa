@@ -67,8 +67,6 @@ class BST[T: Comparable](BinaryTree[T]):
 
         assert parent is not None
 
-        new_node.parent = parent
-
         if value < parent.value:
             parent.left = new_node
         else:
@@ -167,13 +165,19 @@ class BST[T: Comparable](BinaryTree[T]):
         if node.right is not None:
             return self.minimum(node.right)
 
-        parent = node.parent
+        successor: BinaryNode[T] | None = None
+        current = self.root
 
-        while parent is not None and node == parent.right:
-            node = parent
-            parent = parent.parent
+        while current is not None:
+            if node.value < current.value:
+                successor = current
+                current = current.left
+            elif node.value > current.value:
+                current = current.right
+            else:
+                break
 
-        return parent
+        return successor
 
     # =====================================================
     # PREDECESSOR
@@ -192,40 +196,23 @@ class BST[T: Comparable](BinaryTree[T]):
         if node.left is not None:
             return self.maximum(node.left)
 
-        parent = node.parent
+        predecessor: BinaryNode[T] | None = None
+        current = self.root
 
-        while parent is not None and node == parent.left:
-            node = parent
-            parent = parent.parent
+        while current is not None:
+            if node.value > current.value:
+                predecessor = current
+                current = current.right
+            elif node.value < current.value:
+                current = current.left
+            else:
+                break
 
-        return parent
+        return predecessor
 
     # =====================================================
     # DELETE
     # =====================================================
-
-    def _transplant(
-        self,
-        u: BinaryNode[T],
-        v: BinaryNode[T] | None,
-    ) -> None:
-        """
-        Replace one subtree with another subtree.
-
-        :param u: The root of the subtree being replaced.
-        :param v: The root of the replacement subtree, or ``None``.
-        """
-        if u.parent is None:
-            self.root = v
-
-        elif u == u.parent.left:
-            u.parent.left = v
-
-        else:
-            u.parent.right = v
-
-        if v is not None:
-            v.parent = u.parent
 
     def delete(self, value: T) -> bool:
         """
@@ -235,32 +222,51 @@ class BST[T: Comparable](BinaryTree[T]):
         :return: ``True`` if the value was found and deleted, otherwise
             ``False``.
         """
-        node = self.find(value)
+        parent: BinaryNode[T] | None = None
+        node = self.root
+
+        # Find the node and its parent.
+        while node is not None and node.value != value:
+            parent = node
+
+            if value < node.value:
+                node = node.left
+            else:
+                node = node.right
 
         if node is None:
             return False
 
+        # Case 1: node has no left child.
         if node.left is None:
-            self._transplant(node, node.right)
+            replacement = node.right
 
+        # Case 2: node has no right child.
         elif node.right is None:
-            self._transplant(node, node.left)
+            replacement = node.left
 
+        # Case 3: node has two children.
         else:
-            successor = self.minimum(node.right)
+            successor_parent = node
+            successor = node.right
 
-            assert successor is not None
+            while successor.left is not None:
+                successor_parent = successor
+                successor = successor.left
 
-            if successor.parent != node:
-                self._transplant(successor, successor.right)
-
+            if successor_parent != node:
+                successor_parent.left = successor.right
                 successor.right = node.right
-                successor.right.parent = successor
 
-            self._transplant(node, successor)
+            replacement = successor
+            replacement.left = node.left
 
-            successor.left = node.left
-            successor.left.parent = successor
+        if parent is None:
+            self.root = replacement
+        elif parent.left is node:
+            parent.left = replacement
+        else:
+            parent.right = replacement
 
         self._size -= 1
 
