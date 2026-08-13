@@ -159,4 +159,3 @@ def test_delete_missing_node(bst):
     assert not bst.delete(999)
 
     assert len(bst) == 7
-    

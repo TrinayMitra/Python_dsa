@@ -5,9 +5,9 @@ from stepps.trees.bst_impl import BSTImpl
 from stepps.trees.tree import Tree
 
 __all__ = [
-    "Tree",
-    "BinaryTree",
-    "BinaryTreeImpl",
     "BST",
     "BSTImpl",
+    "BinaryTree",
+    "BinaryTreeImpl",
+    "Tree",
 ]

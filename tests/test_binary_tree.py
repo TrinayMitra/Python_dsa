@@ -15,6 +15,9 @@ class ConcreteBinaryTree(BinaryTreeImpl[int]):
     def delete(self, value: int) -> bool:
         raise NotImplementedError
 
+    def invert_tree(self) -> None:
+        super().invert_tree()
+
 
 @pytest.fixture
 def tree():
@@ -128,3 +131,55 @@ def test_empty_tree_internal_nodes():
 
 def test_repr(tree):
     assert repr(tree) == "ConcreteBinaryTree(size=7)"
+
+
+# =====================================================
+# Tree Inversion
+# =====================================================
+
+
+def test_invert_tree(tree):
+    tree.invert_tree()
+
+    assert tree.root is not None
+    assert tree.root.value == 50
+
+    assert tree.root.left is not None
+    assert tree.root.left.value == 70
+
+    assert tree.root.right is not None
+    assert tree.root.right.value == 30
+
+    assert tree.root.left.left is not None
+    assert tree.root.left.left.value == 80
+
+    assert tree.root.left.right is not None
+    assert tree.root.left.right.value == 60
+
+    assert tree.root.right.left is not None
+    assert tree.root.right.left.value == 40
+
+    assert tree.root.right.right is not None
+    assert tree.root.right.right.value == 20
+
+
+def test_invert_empty_tree():
+    tree = ConcreteBinaryTree()
+
+    tree.invert_tree()
+
+    assert tree.is_empty()
+
+
+def test_invert_single_node_tree():
+    tree = ConcreteBinaryTree()
+
+    tree.root = BinaryNode(50)
+    tree._size = 1
+
+    tree.invert_tree()
+
+    assert tree.root is not None
+    assert tree.root.value == 50
+    assert tree.root.left is None
+    assert tree.root.right is None

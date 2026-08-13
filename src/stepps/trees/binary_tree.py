@@ -85,3 +85,14 @@ class BinaryTree[T](Tree[T]):
         :return: ``True`` if the value was deleted, otherwise ``False``.
         """
         ...
+
+    @abstractmethod
+    def invert_tree(self) -> None:
+        """
+        Invert the binary tree in place.
+
+        The left and right children of every node are exchanged.
+
+        :return: ``None``.
+        """
+        ...

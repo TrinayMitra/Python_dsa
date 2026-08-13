@@ -196,6 +196,28 @@ class BinaryTreeImpl[T](BinaryTree[T]):
         """
         return not self.is_empty()
 
+    def invert_tree(self) -> None:
+        """
+        Invert the binary tree in place.
+
+        The left and right children of every node are exchanged.
+        """
+        if self.root is None:
+            return
+
+        queue: deque[BinaryNode[T]] = deque([self.root])
+
+        while queue:
+            node = queue.popleft()
+
+            node.left, node.right = node.right, node.left
+
+            if node.left is not None:
+                queue.append(node.left)
+
+            if node.right is not None:
+                queue.append(node.right)
+
     def __repr__(self) -> str:
         """
         Return the string representation of the tree.
