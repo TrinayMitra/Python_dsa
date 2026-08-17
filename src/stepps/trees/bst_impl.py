@@ -79,10 +79,9 @@ class BSTImpl[T: Comparable](BST[T], BinaryTreeImpl[T]):
         :return: The minimum-valued node, or ``None`` if the tree is empty.
         """
         if node is None:
+            if self.root is None:
+                return None
             node = self.root
-
-        if node is None:
-            return None
 
         while node.left is not None:
             node = node.left
@@ -99,10 +98,9 @@ class BSTImpl[T: Comparable](BST[T], BinaryTreeImpl[T]):
         :return: The maximum-valued node, or ``None`` if the tree is empty.
         """
         if node is None:
+            if self.root is None:
+                return None
             node = self.root
-
-        if node is None:
-            return None
 
         while node.right is not None:
             node = node.right
