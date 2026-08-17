@@ -107,60 +107,6 @@ class BSTImpl[T: Comparable](BST[T], BinaryTreeImpl[T]):
 
         return node
 
-    def successor(self, node: BinaryNode[T] | None) -> BinaryNode[T] | None:
-        """
-        Find the inorder successor of a node.
-
-        :param node: The node whose successor should be found.
-        :return: The inorder successor, or ``None`` if no successor exists.
-        """
-        if node is None:
-            return None
-
-        if node.right is not None:
-            return self.minimum(node.right)
-
-        successor: BinaryNode[T] | None = None
-        current = self.root
-
-        while current is not None:
-            if node.value < current.value:
-                successor = current
-                current = current.left
-            elif node.value > current.value:
-                current = current.right
-            else:
-                break
-
-        return successor
-
-    def predecessor(self, node: BinaryNode[T] | None) -> BinaryNode[T] | None:
-        """
-        Find the inorder predecessor of a node.
-
-        :param node: The node whose predecessor should be found.
-        :return: The inorder predecessor, or ``None`` if no predecessor exists.
-        """
-        if node is None:
-            return None
-
-        if node.left is not None:
-            return self.maximum(node.left)
-
-        predecessor: BinaryNode[T] | None = None
-        current = self.root
-
-        while current is not None:
-            if node.value > current.value:
-                predecessor = current
-                current = current.right
-            elif node.value < current.value:
-                current = current.left
-            else:
-                break
-
-        return predecessor
-
     def delete(self, value: T) -> bool:
         """
         Delete a value from the binary search tree.

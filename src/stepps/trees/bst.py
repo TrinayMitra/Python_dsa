@@ -45,26 +45,6 @@ class BST[T: Comparable](BinaryTree[T]):
         ...
 
     @abstractmethod
-    def successor(self, node: BinaryNode[T] | None) -> BinaryNode[T] | None:
-        """
-        Find the inorder successor of a node.
-
-        :param node: The node whose successor should be found.
-        :return: The inorder successor, or ``None`` if no successor exists.
-        """
-        ...
-
-    @abstractmethod
-    def predecessor(self, node: BinaryNode[T] | None) -> BinaryNode[T] | None:
-        """
-        Find the inorder predecessor of a node.
-
-        :param node: The node whose predecessor should be found.
-        :return: The inorder predecessor, or ``None`` if no predecessor exists.
-        """
-        ...
-
-    @abstractmethod
     def min(self) -> BinaryNode[T] | None:
         """
         Return the minimum-valued node in the tree.
