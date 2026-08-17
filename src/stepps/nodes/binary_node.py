@@ -59,11 +59,3 @@ class BinaryNode[T]:
         :return: The number of children, either ``0``, ``1``, or ``2``.
         """
         return int(self.left is not None) + int(self.right is not None)
-
-    def __repr__(self) -> str:
-        """
-        Return the string representation of the node.
-
-        :return: A string containing the node's value.
-        """
-        return f"BinaryNode({self.value})"

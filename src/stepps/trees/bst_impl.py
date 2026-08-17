@@ -176,11 +176,3 @@ class BSTImpl[T: Comparable](BST[T], BinaryTreeImpl[T]):
         :return: The maximum-valued node, or ``None`` if the tree is empty.
         """
         return self.maximum()
-
-    def __repr__(self) -> str:
-        """
-        Return the string representation of the binary search tree.
-
-        :return: A string containing the tree type and node count.
-        """
-        return f"BSTImpl(size={self._size})"

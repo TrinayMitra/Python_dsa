@@ -217,11 +217,3 @@ class BinaryTreeImpl[T](BinaryTree[T]):
 
             if node.right is not None:
                 queue.append(node.right)
-
-    def __repr__(self) -> str:
-        """
-        Return the string representation of the tree.
-
-        :return: A string containing the tree type and node count.
-        """
-        return f"{self.__class__.__name__}(size={self._size})"
