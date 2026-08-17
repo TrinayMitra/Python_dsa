@@ -1,3 +1,5 @@
+from typing import override
+
 from stepps.nodes import BinaryNode
 from stepps.trees.binary_tree_impl import BinaryTreeImpl
 from stepps.trees.bst import BST, Comparable
@@ -8,6 +10,7 @@ class BSTImpl[T: Comparable](BST[T], BinaryTreeImpl[T]):
     Provide the default implementation of a binary search tree.
     """
 
+    @override
     def insert(self, value: T) -> BinaryNode[T]:
         """
         Insert a value into the binary search tree.
@@ -49,6 +52,7 @@ class BSTImpl[T: Comparable](BST[T], BinaryTreeImpl[T]):
 
         return new_node
 
+    @override
     def find(self, value: T) -> BinaryNode[T] | None:
         """
         Find a node containing ``value``.
@@ -69,6 +73,7 @@ class BSTImpl[T: Comparable](BST[T], BinaryTreeImpl[T]):
 
         return None
 
+    @override
     def minimum(self, node: BinaryNode[T] | None = None) -> BinaryNode[T] | None:
         """
         Find the minimum-valued node in a subtree.
@@ -88,6 +93,7 @@ class BSTImpl[T: Comparable](BST[T], BinaryTreeImpl[T]):
 
         return node
 
+    @override
     def maximum(self, node: BinaryNode[T] | None = None) -> BinaryNode[T] | None:
         """
         Find the maximum-valued node in a subtree.
@@ -107,6 +113,7 @@ class BSTImpl[T: Comparable](BST[T], BinaryTreeImpl[T]):
 
         return node
 
+    @override
     def delete(self, value: T) -> bool:
         """
         Delete a value from the binary search tree.
@@ -161,6 +168,7 @@ class BSTImpl[T: Comparable](BST[T], BinaryTreeImpl[T]):
 
         return True
 
+    @override
     def min(self) -> BinaryNode[T] | None:
         """
         Return the minimum-valued node in the tree.
@@ -169,6 +177,7 @@ class BSTImpl[T: Comparable](BST[T], BinaryTreeImpl[T]):
         """
         return self.minimum()
 
+    @override
     def max(self) -> BinaryNode[T] | None:
         """
         Return the maximum-valued node in the tree.

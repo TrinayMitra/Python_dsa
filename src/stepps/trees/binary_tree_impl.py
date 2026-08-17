@@ -1,4 +1,5 @@
 from collections import deque
+from typing import override
 
 from stepps.nodes import BinaryNode
 from stepps.trees.binary_tree import BinaryTree
@@ -39,6 +40,7 @@ class BinaryTreeImpl[T](BinaryTree[T]):
         """
         return self._size
 
+    @override
     def find(self, value: T) -> BinaryNode[T] | None:
         """
         Find the first node containing ``value``.
@@ -65,6 +67,7 @@ class BinaryTreeImpl[T](BinaryTree[T]):
 
         return None
 
+    @override
     def contains(self, value: T) -> bool:
         """
         Return whether ``value`` exists in the tree.
@@ -74,6 +77,7 @@ class BinaryTreeImpl[T](BinaryTree[T]):
         """
         return self.find(value) is not None
 
+    @override
     def __contains__(self, value: T) -> bool:
         """
         Return whether ``value`` exists in the tree.
@@ -83,6 +87,7 @@ class BinaryTreeImpl[T](BinaryTree[T]):
         """
         return self.contains(value)
 
+    @override
     def height(self) -> int:
         """
         Return the height of the tree.
@@ -107,6 +112,7 @@ class BinaryTreeImpl[T](BinaryTree[T]):
 
         return max_height
 
+    @override
     def count_leaves(self) -> int:
         """
         Return the number of leaf nodes in the tree.
@@ -134,6 +140,7 @@ class BinaryTreeImpl[T](BinaryTree[T]):
 
         return count
 
+    @override
     def count_internal_nodes(self) -> int:
         """
         Return the number of internal nodes in the tree.
@@ -160,6 +167,7 @@ class BinaryTreeImpl[T](BinaryTree[T]):
 
         return count
 
+    @override
     def insert(self, value: T) -> BinaryNode[T]:
         """
         Insert a value into the tree.
@@ -170,6 +178,7 @@ class BinaryTreeImpl[T](BinaryTree[T]):
         """
         raise NotImplementedError
 
+    @override
     def delete(self, value: T) -> bool:
         """
         Delete a value from the tree.
@@ -196,6 +205,7 @@ class BinaryTreeImpl[T](BinaryTree[T]):
         """
         return not self.is_empty()
 
+    @override
     def invert_tree(self) -> None:
         """
         Invert the binary tree in place.
