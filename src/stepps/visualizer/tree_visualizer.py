@@ -7,7 +7,7 @@ class TreeVisualizer[T](ABC):
     """
 
     @abstractmethod
-    def treevsualizer(self, tree: T) -> None:
+    def treevisualizer(self, tree: T) -> None:
         """
         Visualize a tree.
 

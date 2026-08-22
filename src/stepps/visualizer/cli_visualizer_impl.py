@@ -11,17 +11,17 @@ class CliTreeVisualizerImpl[T](CliTreeVisualizer[T]):
     """
 
     @override
-    def treevsualizer(self, tree: BinaryTree[T]) -> None:
+    def treevisualizer(self, tree: BinaryNode[T] | None) -> None:
         """
         Visualize a binary tree in the terminal.
 
-        :param tree: The binary tree to visualize.
+        :param tree: The root node of the binary tree.
         """
-        if tree.root is None:
+        if tree is None:
             print("<empty tree>")
             return
 
-        self._display(tree.root)
+        self._display(tree)
 
     def _display(
         self,

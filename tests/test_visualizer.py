@@ -2,13 +2,13 @@ from stepps.trees import BSTImpl
 from stepps.visualizer.cli_visualizer_impl import CliTreeVisualizerImpl
 
 
-def create_tree() -> BSTImpl[int]:
+def create_tree() -> BSTImpl:
     """
     Create a sample binary search tree for visualization tests.
 
     :return: A populated binary search tree.
     """
-    tree = BSTImpl[int]()
+    tree = BSTImpl()
 
     for value in [50, 30, 70, 20, 40, 60, 80]:
         tree.insert(value)
@@ -21,9 +21,9 @@ def test_visualize_tree(capsys):
     Test visualization of a populated binary search tree.
     """
     tree = create_tree()
-    visualizer = CliTreeVisualizerImpl[int]()
+    visualizer = CliTreeVisualizerImpl()
 
-    visualizer.treevsualizer(tree)
+    visualizer.treevisualizer(tree.root)
 
     captured = capsys.readouterr()
 
@@ -46,10 +46,10 @@ def test_visualize_empty_tree(capsys):
     """
     Test visualization of an empty binary search tree.
     """
-    tree = BSTImpl[int]()
-    visualizer = CliTreeVisualizerImpl[int]()
+    tree = BSTImpl()
+    visualizer = CliTreeVisualizerImpl()
 
-    visualizer.treevsualizer(tree)
+    visualizer.treevisualizer(tree.root)
 
     captured = capsys.readouterr()
 
@@ -62,11 +62,11 @@ def test_visualize_single_node_tree(capsys):
     """
     Test visualization of a binary search tree containing one node.
     """
-    tree = BSTImpl[int]()
+    tree = BSTImpl()
     tree.insert(50)
 
-    visualizer = CliTreeVisualizerImpl[int]()
-    visualizer.treevsualizer(tree)
+    visualizer = CliTreeVisualizerImpl()
+    visualizer.treevisualizer(tree.root)
 
     captured = capsys.readouterr()
 
@@ -79,13 +79,13 @@ def test_visualize_left_skewed_tree(capsys):
     """
     Test visualization of a left-skewed binary search tree.
     """
-    tree = BSTImpl[int]()
+    tree = BSTImpl()
 
     for value in [50, 40, 30, 20]:
         tree.insert(value)
 
-    visualizer = CliTreeVisualizerImpl[int]()
-    visualizer.treevsualizer(tree)
+    visualizer = CliTreeVisualizerImpl()
+    visualizer.treevisualizer(tree.root)
 
     captured = capsys.readouterr()
 
@@ -101,13 +101,13 @@ def test_visualize_right_skewed_tree(capsys):
     """
     Test visualization of a right-skewed binary search tree.
     """
-    tree = BSTImpl[int]()
+    tree = BSTImpl()
 
     for value in [50, 60, 70, 80]:
         tree.insert(value)
 
-    visualizer = CliTreeVisualizerImpl[int]()
-    visualizer.treevsualizer(tree)
+    visualizer = CliTreeVisualizerImpl()
+    visualizer.treevisualizer(tree.root)
 
     captured = capsys.readouterr()
 
@@ -117,3 +117,4 @@ def test_visualize_right_skewed_tree(capsys):
     assert "60" in captured.out
     assert "70" in captured.out
     assert "80" in captured.out
+    
